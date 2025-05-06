@@ -73,20 +73,18 @@
     </div>
 
     <script>
+        "use script";
         document.getElementById('findButton').addEventListener('click', function() {
             const n = parseInt(document.getElementById('number').value);
             const resultDiv = document.getElementById('result');
             
-            // Проверка ввода
             if (isNaN(n) || n < 2) {
                 resultDiv.innerHTML = '<p style="color: red;">Пожалуйста, введите число больше или равное 2</p>';
                 return;
             }
             
-            // Находим простые числа
             const primes = findPrimes(n);
             
-            // Выводим результат
             if (primes.length === 0) {
                 resultDiv.innerHTML = '<p>Простых чисел в диапазоне не найдено</p>';
             } else {
@@ -98,14 +96,12 @@
             }
         });
         
-        // Функция для поиска простых чисел (решето Эратосфена)
         function findPrimes(max) {
             const sieve = [];
             const primes = [];
             
             for (let i = 2; i <= max; ++i) {
                 if (!sieve[i]) {
-                    // i не было отмечено — значит, это простое число
                     primes.push(i);
                     for (let j = i * 2; j <= max; j += i) {
                         sieve[j] = true;
