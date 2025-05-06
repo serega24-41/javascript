@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пенсионный калькулятор</title>
-  'use strict';
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -84,6 +83,7 @@
     </form>
 
     <script>
+        "use strict";
         document.getElementById('calculateBtn').addEventListener('click', function() {
             const ageInput = document.getElementById('age');
             const age = parseInt(ageInput.value);
