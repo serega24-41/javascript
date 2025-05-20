@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <script type="module" src="/Lab2/Lab2_1/Lab2_1.js"></script>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тестирование lab3.js</title>
+    <!-- добавим стили mocha для отображения результатов -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
+    <!-- добавляем сам фреймворк mocha -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
     <script>
+        // включаем режим тестирования в стиле BDD
         mocha.setup('bdd');
     </script>
+    <!-- добавим chai -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
     <script>
+        // chai предоставляет большое количество функций. Объявим assert глобально
         let assert = chai.assert;
     </script>
 </head>
 
 <body>
+    <!-- скрипт со спецификацией -->
     <script type="module">
         import {
             getDecimal,
@@ -95,16 +100,17 @@
 
         });
 
-       describe("camelize", function () {
-    it("camelize('var-test-text') => 'varTestText'", function () {
-        assert.strictEqual(camelize('var-test-text'), 'varTestText');
-    });
+        describe("camelize", function () {
 
-    it("camelize('person__eye--blue') => 'personEyeBlue'", function () {  
-        assert.strictEqual(camelize('person__eye--blue'), 'personEyeBlue');
-    });
-});
-        
+            it("camelize('var-test-text') => 'varTestText'", function () {
+                assert.strictEqual(camelize('var-test-text'), 'varTestText');
+            });
+
+            it("camelize('person__eye--blue') => 'person__eyeBlue'", function () {
+                assert.strictEqual(camelize('person__eye--blue'), 'person__eyeBlue');
+            });
+
+        });
 
         describe("fibs", function () {
 
@@ -136,8 +142,10 @@
 
     </script>
 
+    <!-- элемент с id="mocha" будет содержать результаты тестов -->
     <div id="mocha"></div>
 
+    <!-- запускаем тесты! -->
     <script>
         window.onload = () => mocha.run();
     </script>
