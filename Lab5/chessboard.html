@@ -6,16 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Шахматная доска</title>
+    <style>
+        table.chessboard {
+            background: white;
+            font-size: 88%;
+            border: 1px #b0b0b0 solid;
+            padding: 0;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        table.chessboard td {
+            padding: 0;
+        }
+    </style>
 </head>
 
 <body>
-    <table cellpadding="0" cellspacing="0"
-        style="background:white;font-size:88%;border:1px #b0b0b0 solid;padding:0;margin:auto">
+    <table class="chessboard">
+        <!-- Остальной код таблицы остаётся без изменений -->
+        <tbody style="vertical-align:middle;text-align:center;">
         <tbody style="vertical-align:middle;text-align:center;">
             <tr>
                 <td style="vertical-align:inherit;padding:0"></td>
                 <td style="padding:0;vartical-align:inherit;height:18px;width:26px">a</td>
-                <td style="padding:0;vartical-align:inherit;height:18px;width:26px">b</td>
+                <td style="padding:0;vertical-align:inherit;height:18px;width:26px">b</td>
                 <td style="padding:0;vartical-align:inherit;height:18px;width:26px">c</td>
                 <td style="padding:0;vartical-align:inherit;height:18px;width:26px">d</td>
                 <td style="padding:0;vartical-align:inherit;height:18px;width:26px">e</td>
@@ -351,9 +365,9 @@
                 <td style="padding:0;vartical-align:inherit;height:18px;width:26px">c</td>
                 <td style="padding:0;vartical-align:inherit;height:18px;width:26px">d</td>
                 <td style="padding:0;vartical-align:inherit;height:18px;width:26px">e</td>
-                <td style="padding:0;vartical-align:inherit;height:18px;width:26px">f</td>
-                <td style="padding:0;vartical-align:inherit;height:18px;width:26px">g</td>
-                <td style="padding:0;vartical-align:inherit;height:18px;width:26px">h</td>
+                <td style="padding:0;vertical-align:inherit;height:18px;width:26px">f</td>
+                <td style="padding:0;vertical-align:inherit;height:18px;width:26px">g</td>
+                <td style="padding:0;vertical-align:inherit;height:18px;width:26px">h</td>
                 <td style="vertical-align:inherit;padding:0"></td>
             </tr>
         </tbody>
