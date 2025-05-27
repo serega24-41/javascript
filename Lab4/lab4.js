@@ -1,114 +1,152 @@
-function Book(title, pubYear, price) {
-    // Приватные свойства
-    let _title = title;
-    let _pubYear = pubYear;
-    let _price = price;
+'use strict';
 
-    // Метод show
-    this.show = function() {
-        console.log(`Название: ${_title}, Цена: ${_price}`);
+class Book {
+    constructor(title, pubYear, price) {
+        this.title = title;
+        this.pubYear = pubYear;
+        this.price = price;
+    }
+
+    get title() {
+        return this._title;
+    }
+
+    set title(text) {
+        if (typeof text !== 'string' || text.trim() === '') {
+            throw new Error('Title must be a non-empty string.');
+        }
+        this._title = text.trim();
+    }
+
+    get pubYear() {
+        return this._pubYear;
+    }
+
+    set pubYear(newPubYear) {
+        if (typeof newPubYear !== 'number' || newPubYear <= 0 || !Number.isInteger(newPubYear)) {
+            throw new Error('pubYear must be a positive integer.');
+        }
+        this._pubYear = newPubYear;
+    }
+
+    get price() {
+        return this._price;
+    }
+
+    set price(newPrice) {
+        if (typeof newPrice !== 'number' || newPrice <= 0) {
+            throw new Error('Price must be a positive number.');
+        }
+        this._price = newPrice;
+    }
+
+    show() {
+        console.log(`Название: ${this._title},
+Год публикации: ${this._pubYear},
+Цена: ${this._price}`);
+    }
+
+    static compare(book1, book2) {
+        return book1.pubYear - book2.pubYear;
+    }
+}
+
+try {
+    let book1 = new Book('1984', 1949, 1000);
+    book1.show();
+    book1.price = 1900;
+    book1.show();
+
+    console.log("Цена book1:", book1.price);
+
+    let book2 = new Book('To Kill a Mockingbird', 1960, 890);
+    book2.show();
+    let book3 = new Book('1984', 1949, 250);
+    book3.show();
+
+    let books = [book1, book2, book3];
+    books.sort(Book.compare);
+    console.log("Книги после сортировки по году издания:");
+    for (let i = 0; i < books.length; ++i) {
+        books[i].show();
+    }
+
+
+    function isEmpty(obj) {
+        if (typeof obj !== 'object' || obj === null) return true;
+
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) return false;
+        }
+        return Object.getOwnPropertySymbols(obj).length === 0;
+    }
+
+    let obj1 = { [Symbol()]: true };
+    let obj2 = {};
+
+    console.log("Объект 1", isEmpty(obj1));
+    console.log("Объект 2", isEmpty(obj2));
+
+
+
+    let classObject = {
+        className: "open menu",
+
+        addClass(cls) {
+            let classes = this.className.split(' ');
+            if (!classes.includes(cls)) {
+                this.className += " " + cls;
+            }
+            return this;
+        },
+
+        removeClass(cls) {
+            let classes = this.className.split(' ');
+            let index = classes.indexOf(cls);
+            if (index !== -1) {
+                classes.splice(index, 1);
+                this.className = classes.join(' ');
+            }
+        }
     };
 
-    Object.defineProperties(this, {
-        title: {
-            get() { return _title; },
-            set(value) {
-                if (typeof value === 'string' && value.trim() !== '') {
-                    _title = value;
-                } else {
-                    throw new Error('Название не может быть пустым');
-                }
-            }
-        },
-        pubYear: {
-            get() { return _pubYear; },
-            set(value) {
-                if (typeof value === 'number' && value > 0) {
-                    _pubYear = value;
-                } else {
-                    throw new Error('Год публикации должен быть положительным числом');
-                }
-            }
-        },
-        price: {
-            get() { return _price; },
-            set(value) {
-                if (typeof value === 'number' && value > 0) {
-                    _price = value;
-                } else {
-                    throw new Error('Цена должна быть положительным числом');
-                }
-            }
-        }
-    });
-}
+    classObject.addClass('close');
+    console.log("className после addClass('close'):", classObject.className);
 
-const book1 = new Book('JavaScript', 2020, 1000);
-book1.show();
+    classObject.addClass('open');
+    console.log("className после addClass('open'):", classObject.className);
 
-book1.title = 'New Title';
-book1.pubYear = 2023;
-book1.price = 1500;
-Book.compare = function(a, b) {
-    return a.pubYear - b.pubYear;
-};
+    classObject.removeClass('menu');
+    console.log("className после removeClass('menu'):", classObject.className);
 
-const books = [
-    new Book('Book A', 2010, 500),
-    new Book('Book B', 2005, 300),
-    new Book('Book C', 2020, 700)
-];
 
-books.sort(Book.compare);
-console.log(books);
-function isEmpty(obj) {
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            return false;
-        }
+    let jsonString = JSON.stringify(classObject, null, 2);
+    console.log("JSON строка:", jsonString);
+
+    let object2 = JSON.parse(jsonString);
+    console.log('Сравнение объектов из JSON:', JSON.stringify(object2) === JSON.stringify(classObject));
+
+
+    function getSecondsToday() {
+        let now = new Date();
+        let start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        return Math.floor((now - start) / 1000); 
     }
-    return Object.getOwnPropertySymbols(obj).length === 0;
-}
 
-const objWithSymbol = { [Symbol()]: true };
-console.log(isEmpty(objWithSymbol));
-console.log(isEmpty({}));
-const obj = {
-    className: 'open menu',
-    addClass(cls) {
-        if (!this.className.includes(cls)) {
-            this.className += ` ${cls}`;
-        }
-        return this;
-    },
-    removeClass(cls) {
-        this.className = this.className
-            .split(' ')
-            .filter(c => c !== cls)
-            .join(' ');
-        return this;
+    console.log("Секунд с начала дня: ", getSecondsToday());
+
+
+    function formatDate(date) {
+        return date.toLocaleDateString();
     }
-};
 
-obj.addClass('new').removeClass('open');
-console.log(obj.className);
-const jsonStr = JSON.stringify(obj, null, 2);
-console.log(jsonStr);
+    let date1 = new Date(2024, 0, 20); 
+    let date2 = new Date(2000, 11, 1); 
+    let date3 = new Date(1995, 9, 10); 
 
-const obj2 = JSON.parse(jsonStr);
-console.log(JSON.stringify(obj) === JSON.stringify(obj2));
-function getSecondsToday() {
-    const now = new Date();
-    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    return Math.floor((now - todayStart) / 1000);
+    console.log("Дата 1:", formatDate(date1));
+    console.log("Дата 2:", formatDate(date2));
+    console.log("Дата 3:", formatDate(date3));
+} catch (error) {
+    console.error("Произошла ошибка:", error.message);
 }
-
-console.log(getSecondsToday());
-function formatDate(date) {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = String(date.getFullYear()).slice(-2);
-    return `${day}.${month}.${year}`;
-}
-
-console.log(formatDate(new Date()));
